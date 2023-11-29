@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body {
+          background-color: rgba(11, 200, 203, 0.341);
+        }
+    
+        .login-container {
+          max-width: 400px;
+          margin: 100px auto;
+          background-color: #33c662;
+          padding: 20px;
+          border-radius: 10px;
+          
+        }
+    
+        .form-group {
+          margin-bottom: 20px;
+        }
+    
+        .form-group label {
+          font-weight: bold;
+        }
+    
+        .form-group input {
+          width: 100%;
+          padding: 8px;
+          border: 1px solid #ced4da;
+          border-radius: 5px;
+        }
+    
+        .btn-login {
+          width: 100%;
+          padding: 10px;
+          background-color: #007bff;
+          color: #ede4e4;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+    
+        .btn-login:hover { 
+          background-color: #0056b3;
+        }
+      </style>
+    </head>
+    <body>
+    
+    <div class="container">
+      <div class="login-container">
+        <h2 class="text-center  m-4" style="  font-weight: 800; color: #d2e100;">DETAILS</h2>
+        <form>
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control"  id="nickname" placeholder="Enter your name">
+            <p id="nameform" style="color: #e10000;"></p>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="number" class="form-control" id="phonenumber" placeholder="Enter your phone number">
+            <p id="numberform" style="color: #e10000;"></p>
+          </div>
+          <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="number" class="form-control" id="ageold" placeholder="Enter your age">
+            <p id="ageform" style="color: #e10000;"></p>
+          </div>
+          <div class="form-group">
+            <label for="gmail">Gmail:</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter your Gmail">
+            <p id="gmailform" style="color: #e10000;"></p>
+          </div>
+        
+          <button type="button" class="btn btn-login " onclick="validateForm()"> submit </button>
+
+         
+        
+        </form>
+        <form action="/home" method="get " class="pt-3">
+          <button type="submit" class="btn btn-login " style=" background-color: #e10000;" > Home </button>
+         </form>
+      </div>
+    </div>
+    </body>
+
+    <script>
+      function validateForm(){
+        let tname = document.getElementById('nickname').value;
+        let fname = document.getElementById('nameform')
+        let telphone = document.getElementById('phonenumber').value;
+        let fphone = document.getElementById('numberform')
+        let yearold = document.getElementById('ageold').value;
+        let fage = document.getElementById('ageform')
+        let mail =document.getElementById('email').value
+        let fgmail = document.getElementById('gmailform')
+    
+    
+        if(tname === ''){
+        fname.innerHTML = " Enter name"
+        
+        return false;
+      }else{
+        fname.innerHTML = ''
+      }
+      if(telphone === ''){
+        fphone.innerHTML = 'Enter your phone number'
+        return false;
+
+      }else{
+        fphone.innerHTML = ''
+      }
+      if(yearold === ''){
+        fage.innerHTML = 'Enter your age'
+        return false
+      }
+
+      if(mail === ''){
+        fgmail.innerHTML='Enter proper gmail '
+        return false
+      }
+      return true
+     
+      }
+     
+    
+    </script>
+   
+</body>
+</html>
+

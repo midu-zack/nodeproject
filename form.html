@@ -56,35 +56,35 @@
     <div class="container">
       <div class="login-container">
         <h2 class="text-center  m-4" style="  font-weight: 800; color: #d2e100;">DETAILS</h2>
-        <form>
+        <form action="" method="post" >
           <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control"  id="nickname" placeholder="Enter your name">
+            <input type="text" class="form-control"  id="nickname" placeholder="Enter your name "value="">
             <p id="nameform" style="color: #e10000;"></p>
           </div>
           <div class="form-group">
             <label for="phone">Phone Number:</label>
-            <input type="number" class="form-control" id="phonenumber" placeholder="Enter your phone number">
+            <input type="number" class="form-control" id="phonenumber" placeholder="Enter your phone number" value="">
             <p id="numberform" style="color: #e10000;"></p>
           </div>
           <div class="form-group">
             <label for="age">Age:</label>
-            <input type="number" class="form-control" id="ageold" placeholder="Enter your age">
+            <input type="number" class="form-control" id="ageold" placeholder="Enter your age" value="">
             <p id="ageform" style="color: #e10000;"></p>
           </div>
           <div class="form-group">
             <label for="gmail">Gmail:</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter your Gmail">
+            <input type="email" class="form-control" id="email" placeholder="Enter your Gmail" value="">
             <p id="gmailform" style="color: #e10000;"></p>
           </div>
-        
-          <button type="button" class="btn btn-login " onclick="validateForm()"> submit </button>
-
+        <form action="/submit" method="post">
+          <button type="submit" class="btn btn-login " onclick="validateForm()"> submit </button>
+        </form>
          
         
         </form>
         <form action="/home" method="get " class="pt-3">
-          <button type="submit" class="btn btn-login " style=" background-color: #e10000;" > Home </button>
+          <button type="submit" class="btn btn-login " style=" background-color: #e10000;" >All USERS</button>
          </form>
       </div>
     </div>
@@ -92,42 +92,92 @@
 
     <script>
       function validateForm(){
+
+  
         let tname = document.getElementById('nickname').value;
         let fname = document.getElementById('nameform')
         let telphone = document.getElementById('phonenumber').value;
         let fphone = document.getElementById('numberform')
         let yearold = document.getElementById('ageold').value;
         let fage = document.getElementById('ageform')
-        let mail =document.getElementById('email').value
+        let fmail =document.getElementById('email').value
         let fgmail = document.getElementById('gmailform')
     
     
-        if(tname === ''){
-        fname.innerHTML = " Enter name"
-        
-        return false;
-      }else{
-        fname.innerHTML = ''
+      if(tname === ''){
+        fname.innerHTML = " Enter your name"
+        return event.preventDefault();
+        return false
       }
+      else{
+        fname.innerHTML=''
+      }
+      
       if(telphone === ''){
         fphone.innerHTML = 'Enter your phone number'
-        return false;
-
-      }else{
-        fphone.innerHTML = ''
+        return event.preventDefault();
+        return false
+      }
+      else{
+        fphone.innerHTML=''
       }
       if(yearold === ''){
         fage.innerHTML = 'Enter your age'
+        return event.preventDefault();
         return false
+      }
+      else{
+        fpage.innerHTML=''
       }
 
-      if(mail === ''){
+      if(fmail === ''){
         fgmail.innerHTML='Enter proper gmail '
+        return event.preventDefault();
         return false
       }
-      return true
-     
+      else{
+        fgmail.innerHTML=''
       }
+       return true
+        
+      }
+
+      if(tname&&telphone&&yearold&&mail){
+        const Datas = {
+          name:tname,
+          phonenumber:telphone,
+          age:yearold,
+          gmail:mail
+        };
+
+        fetch("/submit",{
+          method:"POST",
+          headers:{ "Content-Type": "application/json"},
+          body : JSON.stringify(Datas),
+          
+        })
+
+        .then((response)=>{
+
+
+          if(response.status===200){
+
+            console.log("submitted");
+          }
+          else{
+            
+            response.status;
+            response.statusText;
+
+          }
+
+        });
+         
+      
+      }
+
+      
+
      
     
     </script>

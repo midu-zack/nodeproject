@@ -78,6 +78,29 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="ok"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded",()=>{
+    fetch('/getdetails')
+    .then((response)=>response.json())
+    .then((data)=>{
+        const userData=document.getElementById('userTableBody');
+        
+        data.forEach((item) => {
+          const rows=document.createElement("tr")
+
+          rows.innerHTML = `
+              <td>${item.name}</td>
+              <td>${item.phonenumber}</td>
+              <td>${item.age}</td>
+              <td>${item.email}</td>
+              `
+          userData.appendChild(rows)
+          console.log(userData);
+        });
+    })
+  })
+</script>
 <!-- 
 <script>
   function addUser() {

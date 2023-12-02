@@ -25,10 +25,10 @@
 }else if(route.toLowerCase() ==='/form?'){
      let data = fs.readFileSync('form.html',"utf-8")
        try{
-        res.writeHead(200,{'content-Type':'text/html'})
+        res.writeHead(200,{'Content-Type':'text/html'})
         res.end(data)
       }catch(err){
-        res.writeHead(500,{'content-Type':'text/html'})
+        res.writeHead(500,{'Content-Type':'text/html'})
         res.end("ERROR>>")
       }
     
@@ -37,11 +37,11 @@
 }else if( route.toLocaleLowerCase() ==='/home?'){
     let data= fs.readFileSync('index.html','utf-8')
       try{
-        res.writeHead(200,{'content-Type':'text/html'})
+        res.writeHead(200,{'Content-Type':'text/html'})
         res.end(data)
       }catch(err){
        
-        res.writeHead(500,{'content-Type':'text/html'})
+        res.writeHead(500,{'Content-Type':'text/html'})
         res.end("ERROR IN The PAGE")
     
       }
@@ -61,34 +61,59 @@
         try{
           let recevedatas= JSON.parse(body)
 
-          
           console.log(recevedatas);
 
         fs.readFile('node.json','utf-8',(err,data)=>{
           if(err){
-            res.writeHead(500,{'content-Type':'text/html'})
+            res.writeHead(500,{'Content-Type':'text/html'})
             res.end("ERROR IN The PAGE")
         
           }else{
-            const stringdata = [];
+            var stringdata = [];
             stringdata =JSON.parse(data)
-            const newarray = stringdata.length + 1
+            var newarray = stringdata.length + 1
 
             recevedatas.id = newarray
-            stringdata.push(recevedatas) //PUSHED NEW USER FILE TO SAME ARRAY as object
+            stringdata.push(recevedatas) //push new user file to same array as object
  
+
+            fs.writeFile("node.json", JSON.stringify(stringdata, null, 2), 'utf-8', (err) => {
+              if (err) {
+                  res.writeHead(500, { 'Content-Type': 'text/html' });
+                  res.end(err);
+              } else {
+                  res.writeHead(200, { 'Content-Type': 'text/html' });
+                  res.end("DATA saved ");
+              }
+          });
+          
+
+            
           }
         })
 
         }catch(err){
 
-          res.writeHead(400,{'content-Type':'text/plain'})
+          res.writeHead(400,{'Content-Type':'text/plain'})
           res.end('ERROR'+err)
 
         }
           
-      })
-   }
+      });
+}else if(route.toLocaleLowerCase() === '/getdetails' || method === 'GET'){
+        fs.readFile("node.json","utf-8",(err,data)=>{
+          if(err){
+            res.writeHead(400,{'Content-Type':'text/html'})
+            res.end(err)
+
+          }else{
+            res.writeHead(200,{'Content-Type':'text/html'})
+            res.end(data)
+          }
+
+        });
+
+}
    else{
     res.writeHead(404,{'content-Type':'text/plain'})
     res.end("NOT FOUND")

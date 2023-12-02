@@ -60,6 +60,8 @@
 
         try{
           let recevedatas= JSON.parse(body)
+
+          
           console.log(recevedatas);
 
         fs.readFile('node.json','utf-8',(err,data)=>{
@@ -81,7 +83,7 @@
         }catch(err){
 
           res.writeHead(400,{'content-Type':'text/plain'})
-          res.end('ERROR')
+          res.end('ERROR'+err)
 
         }
           

@@ -56,7 +56,7 @@
     <div class="container">
       <div class="login-container">
         <h2 class="text-center  m-4" style="  font-weight: 800; color: #d2e100;">DETAILS</h2>
-        <form action="" method="post" >
+        <form action="/submit" onsubmit="return validateForm()" method="post" >
           <div class="form-group">
             <label for="name">Name:</label>
             <input type="text" class="form-control"  id="nickname" placeholder="Enter your name "value="">
@@ -77,12 +77,12 @@
             <input type="email" class="form-control" id="email" placeholder="Enter your Gmail" value="">
             <p id="gmailform" style="color: #e10000;"></p>
           </div>
-        <form action="/submit" method="post">
-          <button type="submit" class="btn btn-login " onclick="validateForm()"> submit </button>
-        </form>
          
+          <button type="submit" class="btn btn-login " > submit </button>
+    
         
         </form>
+
         <form action="/home" method="get " class="pt-3">
           <button type="submit" class="btn btn-login " style=" background-color: #e10000;" >All USERS</button>
          </form>
@@ -91,76 +91,79 @@
     </body>
 
     <script>
+      let tname  ;
+      let fname ;
+      let telphone  ;
+      let fphone;
+      let yearold;
+      let fage;
+      let fmail;
+      let fgmail
+
       function validateForm(){
 
   
-        let tname = document.getElementById('nickname').value;
-        let fname = document.getElementById('nameform')
-        let telphone = document.getElementById('phonenumber').value;
-        let fphone = document.getElementById('numberform')
-        let yearold = document.getElementById('ageold').value;
-        let fage = document.getElementById('ageform')
-        let fmail =document.getElementById('email').value
-        let fgmail = document.getElementById('gmailform')
+         fname = document.getElementById('nameform')
+         telphone = document.getElementById('phonenumber').value;
+         tname = document.getElementById('nickname').value;
+         fphone = document.getElementById('numberform')
+         yearold = document.getElementById('ageold').value;
+         fage = document.getElementById('ageform')
+         fmail =document.getElementById('email').value
+         fgmail = document.getElementById('gmailform')
     
     
       if(tname === ''){
         fname.innerHTML = " Enter your name"
-        return event.preventDefault();
-        return false
+        return false;
       }
       else{
-        fname.innerHTML=''
+        fname.innerHTML = ''
       }
+      
       
       if(telphone === ''){
         fphone.innerHTML = 'Enter your phone number'
-        return event.preventDefault();
         return false
+      }else{
+        fphone.innerHTML = ''
       }
-      else{
-        fphone.innerHTML=''
-      }
+      
       if(yearold === ''){
         fage.innerHTML = 'Enter your age'
-        return event.preventDefault();
+       
         return false
+      }else{
+        fage.innerHTML = ''
       }
-      else{
-        fpage.innerHTML=''
-      }
+      
 
       if(fmail === ''){
         fgmail.innerHTML='Enter proper gmail '
-        return event.preventDefault();
+         
         return false
+      }else{
+        fmail.innerHTML = ''
       }
-      else{
-        fgmail.innerHTML=''
-      }
-       return true
-        
-      }
-
-      if(tname&&telphone&&yearold&&mail){
-        const Datas = {
+       
+        const data = {
           name:tname,
           phonenumber:telphone,
           age:yearold,
-          gmail:mail
-        };
+          gmail:fmail
+        }
 
         fetch("/submit",{
           method:"POST",
-          headers:{ "Content-Type": "application/json"},
-          body : JSON.stringify(Datas),
+          headers:{"Content-Type": "application/json"},
+          body : JSON.stringify(data),
           
         })
 
         .then((response)=>{
 
 
-          if(response.status===200){
+          if(response.ok){
 
             console.log("submitted");
           }
@@ -172,9 +175,10 @@
           }
 
         });
-         
+        
+         return false;
       
-      }
+        }
 
       
 

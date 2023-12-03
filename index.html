@@ -57,6 +57,8 @@
         <th scope="col">Phone Number</th>
         <th scope="col">Age</th>
         <th scope="col">Gmail</th>
+         <th scope="col">Update</th>
+        <th scope="col">Delete</th>
       </tr>
       <h3></h3>
     </thead>
@@ -81,6 +83,8 @@
 
 <script>
   document.addEventListener("DOMContentLoaded",()=>{
+
+     
     fetch('/getdetails')
     .then((response)=>response.json())
     .then((data)=>{
@@ -94,39 +98,88 @@
               <td>${item.phonenumber}</td>
               <td>${item.age}</td>
               <td>${item.email}</td>
+
+
+               <td>
+              <button class="btn btn-info btn-sm" onclick="updateUser(${item.name},${item.age},${item.phonenumber},${item.email})">Edit</button>
+            </td>
+            <td>
+              <button class="btn btn-danger btn-sm" onclick="deleteUser(${item.id})">Delete</button>
+            </td>
+
               `
           userData.appendChild(rows)
           console.log(userData);
         });
-    })
-  })
+    }).catch((err)=>{
+      console.error("ERROR 404"+err);
+    });
+  });
+
+
+
+  function updateUse
+ 
+    let tname;
+    let telphone;
+    let yearold;
+    let fmail;
+         
+   tname = document.getElementById('nickname').value;
+   telphone = document.getElementById('phonenumber').value;
+   yearold = document.getElementById('ageold').value;
+   fmail = document.getElementById('email').value;
+    
+      if(tname === ''){
+        fname.innerHTML = " Enter your name"
+        return false;
+      }
+       
+      
+      if(telphone === ''){
+        fphone.innerHTML = 'Enter your phone number'
+        return false
+      } 
+      
+      if(yearold === ''){
+        fage.innerHTML = 'Enter your age'
+       
+        return false
+      } 
+      
+
+      if(fmail === ''){
+        fgmail.innerHTML='Enter proper gmail '
+         
+        return false
+      } 
+       
+        const data = {
+          name:tname,
+          phonenumber:telphone,
+          age:yearold,
+          gmail:fmail
+        }
+        fetch('/editdetails/${fname}',{
+          method : 'PUT',
+          headers : { "Content-Type": "application/json" },
+          body :JSON.stringify(data),
+        }).then((response)=>{
+          if(response.status===200){
+            console.log("Modifd");
+            window.location.href = "/home?"
+          }else{
+            console.err("ERROR modifd not possible")
+            response.status,
+            response.statusText;
+          }
+         
+        })
+            }    
+              
+
 </script>
-<!-- 
-<script>
-  function addUser() {
-    // Dummy data for demonstration
-    const userData = {
-      name: "John Doe",
-      phoneNumber: "123-456-7890",
-      age: 25,
-      gmail: "john.doe@gmail.com"
-    };
-
-    // Create a new table row
-    const newRow = document.createElement("tr");
-
-    // Add data cells
-    newRow.innerHTML = `
-      <td>${userData.name}</td>
-      <td>${userData.phoneNumber}</td>
-      <td>${userData.age}</td>
-      <td>${userData.gmail}</td>
-    `;
-
-    // Append the new row to the table body
-    document.getElementById("userTableBody").appendChild(newRow);
-  }
-</script> -->
-
+ 
+ 
 </body>
 </html>

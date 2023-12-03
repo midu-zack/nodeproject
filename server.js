@@ -1,6 +1,7 @@
 
  var http =require('http')
  var fs = require('fs')
+const { parse } = require('path')
 
 
  http.createServer((req,res)=>{
@@ -100,7 +101,7 @@
         }
           
       });
-}else if(route.toLocaleLowerCase() === '/getdetails' || method === 'GET'){
+}else if(route.toLocaleLowerCase() === '/getdetails' && method === 'GET'){
         fs.readFile("node.json","utf-8",(err,data)=>{
           if(err){
             res.writeHead(400,{'Content-Type':'text/html'})
@@ -112,6 +113,54 @@
           }
 
         });
+ 
+}else if(route.toLocaleLowerCase ==="/editdetails" && method==="PUT" ){
+
+  const prsurl=parse.url(route.true);
+  const userid =parseInt(prsurl.pathname.split('/').pop());
+
+
+  let body = '';
+  req.on("data",(chunk)=>{
+    body = body + chunk
+  });
+
+  req.on("data",()=>{
+    try{
+      const modifaid = JSON.parse(body)
+
+      fs.readFile('node.json',"utf-8",(err,data)=>{
+        if(err){
+          res.writeHead(500,{'Content-Type':'text/html'})
+            res.end("ERROR IN The PAGE")
+        
+        }else{
+          let modi = JSON.parse(data)
+
+          for(let i = 0;i <data.length ; i++){
+            if(modi[i].id===userid){
+              modi[i]=modifaid;
+              break;
+            }
+
+          
+
+            fs.writeFile("node.json", JSON.stringify(modi, null, 2), 'utf-8', (err) => {
+              if (err) {
+                  res.writeHead(500, { 'Content-Type': 'text/html' });
+                  res.end(err);
+              } else {
+                  res.writeHead(200, { 'Content-Type': 'text/html' });
+                  res.end("DATA saved ");
+              }
+          });
+          }
+        }
+      })
+    }catch{
+
+    }
+  })
 
 }
    else{

@@ -5,47 +5,5 @@
     "age": "18",
     "gmail": "midlajmidu0002@gmail.com",
     "id": 1
-  },
-  {
-    "name": "Armand Oconnor",
-    "phonenumber": "999",
-    "age": "53",
-    "gmail": "quzafili@mailinator.com",
-    "id": 2
-  },
-  {
-    "name": "Lana Rodriquez",
-    "phonenumber": "567",
-    "age": "1",
-    "gmail": "bobyvavi@mailinator.com",
-    "id": 3
-  },
-  {
-    "name": "Joel Ratliff",
-    "phonenumber": "399",
-    "age": "66",
-    "gmail": "jutuv@mailinator.com",
-    "id": 4
-  },
-  {
-    "name": "Kelly Bernard",
-    "phonenumber": "453",
-    "age": "69",
-    "gmail": "lucejeluf@mailinator.com",
-    "id": 5
-  },
-  {
-    "name": "Kyla Rice",
-    "phonenumber": "700",
-    "age": "22",
-    "gmail": "qujyfa@mailinator.com",
-    "id": 6
-  },
-  {
-    "name": "Rogan Webb",
-    "phonenumber": "769",
-    "age": "97",
-    "gmail": "vorec@mailinator.com",
-    "id": 7
-  }
+  } 
 ]

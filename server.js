@@ -1,7 +1,7 @@
 
 var http =require('http')
 var fs = require('fs')
-const { parse } = require('path')
+const { parse } = require('url')
 
 
 http.createServer((req,res)=>{
@@ -137,13 +137,13 @@ http.createServer((req,res)=>{
        }else{
          let modi = JSON.parse(data)
 
-         for(let i = 0;i <data.length ; i++){
+         for(let i = 0;i < modi.length ; i++){
            if(modi[i].id===userid){
              modi[i]=modifaid;
              break;
            }
 
-         
+          }
 
            fs.writeFile("node.json", JSON.stringify(modi, null, 2), 'utf-8', (err) => {
              if (err) {
@@ -154,7 +154,7 @@ http.createServer((req,res)=>{
                  res.end("DATA saved ");
              }
          });
-         }
+         
        }
      })
    }catch{

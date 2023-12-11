@@ -76,8 +76,8 @@
  
 </div>
 
-<div class="container">
-  <div class="login-container" id="registration" style="display: none;">
+<div class="container" id="registration" style="display: none;">
+  <div class="login-container" >
     <h2 class="text-center  m-4" style="  font-weight: 800; color: #d2e100;">DETAILS</h2>
     <form action="/submit"  onsubmit="return validateForm()" method="post" >
       <div class="form-group">
@@ -100,15 +100,21 @@
         <input type="email" class="form-control" id="mail" placeholder="example@example.com" name="gmail" value="">
         <p id="gmailform" style="color: #e10000;"></p>
       </div>
-     
-      <button type="submit" class=" btn btn-login " value="" id="modifyd">  Submit </button>
 
+      <input 
+            id="modifyd"
+            type="submit"
+            value="Update"
+            style="background-color: rgb(207, 0, 0); color: white; width: 15rem"
+            
+          />
+          <!-- <form action="/submit" method="get " class="pt-3">
+            <button type="submit" class="btn btn-login " style=" background-color: #e10000;" > </button>
+           </form> -->
+        </div>
     
     </form>
-
-    <!-- <form action="/home" method="get " class="pt-3">
-      <button type="submit" class="btn btn-login " style=" background-color: #e10000;" >All USERS</button>
-     </form> -->
+ 
   </div>
 </div>
 
@@ -117,7 +123,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="ok"></script>
+<!-- <script src="ok"></script> -->
 
 <script>
   document.addEventListener("DOMContentLoaded",()=>{
@@ -157,12 +163,12 @@
 
  
     document.getElementById("userlistform").style.display = 'none'
-     document.getElementById("registration").style.display ='none'
+     document.getElementById("registration").style.display ='block'
        
      document.getElementById('nickname').value = mname;
-     document.getElementById('phonenumber').value = mtmelphone;
+     document.getElementById('phonenumber').value = mtelphone;
      document.getElementById('ageold').value = mage ;
-     document.getElementById('email').value = mgmail ;
+     document.getElementById('mail').value = mgmail ;
 
 
 
@@ -181,6 +187,7 @@
         let fmail = document.getElementById('mail').value
         let fgmail = document.getElementById('gmailform')
     
+        
 
       if(tname === ''){
         fname.innerHTML = " Enter your name"
@@ -220,6 +227,7 @@
           body :JSON.stringify(dataToUpdate),
         }).then((response)=>{
           if(response.status===200){
+            alert("update your datas")
             console.log("Modifd");
             window.location.href = "/home?"
           }else{
@@ -228,8 +236,31 @@
             response.statusText;
           }
          
-        });
+        }) .catch((error) => {
+           console.error("Fetch Error:", error);
+         });
             });
+        }
+
+        // delete button 
+        function deleteUser(userid){
+          fetch (`/deleteuser/${userid}`,{
+            method :'DELETE',
+
+
+          }).then((response)=>{
+            if(response.status === 200){
+              alert("delete success successfully");
+              window.location.href = '/home?'
+
+            }else{
+              console.error("Error: Delete not possible", response.status, response.statusText);
+            }
+
+          }).catch((error) => {
+           console.error("Error:", error);
+    });
+
         }
 
               

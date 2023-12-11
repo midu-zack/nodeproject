@@ -2,6 +2,8 @@
 var http =require('http')
 var fs = require('fs')
 var url = require('url')
+const { parse } = require('path')
+const { Server } = require('https')
 
 
 http.createServer((req,res)=>{
@@ -112,10 +114,10 @@ http.createServer((req,res)=>{
 
         });
 
-}else if(route.toLocaleLowerCase().startsWith() ==="/editdetails" && method==="PUT" ){
+}else if(route.toLocaleLowerCase().startsWith("/editdetails") && method === 'PUT' ){
 
 
-    const prsurl=parse.url(route.true); //parse the url and with object 
+    const prsurl= url.parse(route,true); //parse the url and with object 
     const userid =parseInt(prsurl.pathname.split('/').pop());
   
     let body = '';
@@ -155,7 +157,7 @@ http.createServer((req,res)=>{
             fs.writeFile("node.json", JSON.stringify(modi, null, 2), 'utf-8', (err) => {
               if (err) {
                   res.writeHead(500, { 'Content-Type': 'text/html' });
-                  res.end(err);
+                  res.end("oo", err);
               } else {
                   res.writeHead(200, { 'Content-Type': 'text/html' });
                   res.end("DATA saved ");
@@ -167,23 +169,62 @@ http.createServer((req,res)=>{
     }catch(err){
       res.writeHead(400,{ 'Content-Type': 'text/plain'})
       res.end('error ')
-      value="Modify"
+       
     }
   });
 
   
-}else if(method==='Delete'){
+}else if(route.toLocaleLowerCase().startsWith('/deleteuser') && method==='DELETE'){
+
+ 
+  const parseurl = url.parse(route,true); //parse the url and with object 
+  const userid =parseInt(parseurl.pathname.split('/').pop());
+
+  console.log("Received DELETE request for user ID:", userid);
+
+  const jsondata =require('./node.json');
+  const updatedata = jsondata.filter((otheruserid)=> otheruserid.id !== userid);
+
+  for(let i=0 ; i < updatedata.length ; i++){
+    updatedata[i].id = i + 1;
+  }
+   
+  const updatedatajson = JSON.stringify(updatedata,null,2);
+
+
+  fs.writeFile('node.json',updatedatajson,(err)=>{
+    if(err){
+      console.log("not working deletion ");
+      res.writeHead(500,{"Content-Type": "text/plain"});
+      res.end('error please check ')
+    }else {
+      console.log(" deletion  working");
+      res.writeHead(200,{"Content-Type": "text/plain"});
+      res.end('succesfully')
+    }
+
+  })
+
+  
 
 }
   else{
    res.writeHead(404,{'content-Type':'text/plain'})
-   res.end("NOT FOUND")
+   res.end(" SERVER NOT FOUND")
   }
   
 
   
-}).listen(2222)    
+}).listen(4000)
 
+// const port = process.env.port || 4000;
+// Server.listen(4000,()=> console.log(`server running ${port} `));
+ 
+
+
+
+// const PORT = process.env.PORT || 4000;
+// Server.listen(4000, () => console.log(`Server running on ${PORT}`));
 
 
 

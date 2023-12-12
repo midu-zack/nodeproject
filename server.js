@@ -4,6 +4,7 @@ var fs = require('fs')
 var url = require('url')
 const { parse } = require('path')
 const { Server } = require('https')
+const { Console } = require('console')
 
 
 http.createServer((req,res)=>{
@@ -215,20 +216,12 @@ http.createServer((req,res)=>{
   
 
   
-}).listen(4000)
+}).listen(4000,()=>console.log("Server Running"))
 
 // const port = process.env.port || 4000;
 // Server.listen(4000,()=> console.log(`server running ${port} `));
  
 
-
-
-// const PORT = process.env.PORT || 4000;
-// Server.listen(4000, () => console.log(`Server running on ${PORT}`));
-
-
-
-
-
+ 
 
 

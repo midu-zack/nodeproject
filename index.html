@@ -79,7 +79,7 @@
 <div class="container" id="registration" style="display: none;">
   <div class="login-container" >
     <h2 class="text-center  m-4" style="  font-weight: 800; color: #d2e100;">DETAILS</h2>
-    <form action="/submit"  onsubmit="return validateForm()" method="post" >
+    <form  onsubmit="return validateForm()">
       <div class="form-group">
         <label for="name">Name:</label>
         <input type="text" class="form-control"  id="nickname" placeholder="Enter your name " name="name" value="">
@@ -103,7 +103,7 @@
 
       <input 
             id="modifyd"
-            type="submit"
+            type="button"
             value="Update"
             style="background-color: rgb(207, 0, 0); color: white; width: 15rem"
             

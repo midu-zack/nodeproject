@@ -143,7 +143,7 @@
               <td>${item.phonenumber}</td>
               <td>${item.age}</td>
               <td>${item.gmail}</td> 
-              <td><button class="btn btn-info btn-sm" onclick="updateUser('${item.id}','${item.name}', '${item.phone}', ${item.age}, '${item.gmail}')"">Edit</button>
+              <td><button class="btn btn-info btn-sm" onclick="updateUser('${item.id}','${item.name}', '${item.phonenumber}', ${item.age}, '${item.gmail}')"">Edit</button>
               </td>
               <td>
               <button class="btn btn-danger btn-sm" onclick="deleteUser('${item.id}')">Delete</button>
@@ -215,23 +215,30 @@
 
   
       const dataToUpdate = {
+          id:mid,
           name:tname,
           phonenumber:telphone,
           age:yearold,
           gmail:fmail
           }
 
-        fetch('/editdetails/${mid}', {
+        fetch(`/editdetails/${mid}`, {
           method : 'PUT',
           headers : { "Content-Type": "application/json" },
           body :JSON.stringify(dataToUpdate),
+
         }).then((response)=>{
+          // console.log("checkouttttttt",response);
+          
           if(response.status===200){
+            
             alert("update your datas")
+
+
             console.log("Modifd");
             window.location.href = "/home?"
           }else{
-            console.err("ERROR modifd not possible")
+            console.error("ERROR modifd not possible")
             response.status,
             response.statusText;
           }

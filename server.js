@@ -120,6 +120,8 @@ http.createServer((req,res)=>{
 
     const prsurl= url.parse(route,true); //parse the url and with object 
     const userid =parseInt(prsurl.pathname.split('/').pop());
+
+    console.log(userid);
   
     let body = '';
 
@@ -144,12 +146,15 @@ http.createServer((req,res)=>{
         }else{
           let modi = JSON.parse(jdata) //old datas stored
 
+          //  console.log(modifaid);
+
           for(let i = 0;i < modi.length ; i++){
 
             if(modi[i].id===userid){
 
               modi[i]=modifaid;
               
+
               break;
             }
 
@@ -216,7 +221,7 @@ http.createServer((req,res)=>{
   
 
   
-}).listen(4000,()=>console.log("Server Running"))
+}).listen(5000,()=>console.log("Server Running"))
 
 // const port = process.env.port || 4000;
 // Server.listen(4000,()=> console.log(`server running ${port} `));

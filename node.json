@@ -1,23 +1,16 @@
 [
   {
+    "id": "1",
     "name": "Abraham Howe",
-    "phonenumber": "517",
+    "phonenumber": "5179384983",
     "age": "62",
-    "gmail": "tulagebegy@mailinator.com",
-    "id": 1
+    "gmail": "tulagebegy@mailinator.com"
   },
   {
-    "name": "Eliana Mccarty",
-    "phonenumber": "542",
-    "age": "9",
-    "gmail": "mokopu@mailinator.com",
+    "name": "Madeline Riddle",
+    "phonenumber": "1778274224",
+    "age": "40",
+    "gmail": "wenicihixa@mailinator.com",
     "id": 2
-  },
-  {
-    "name": "midlaj",
-    "phonenumber": "9567666402",
-    "age": "18",
-    "gmail": "midlajmidu0002@gmail.com",
-    "id": 3
   }
 ]

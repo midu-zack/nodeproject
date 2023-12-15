@@ -224,7 +224,7 @@ http.createServer((req,res)=>{
 }).listen(5000,()=>console.log("Server Running"))
 
 // const port = process.env.port || 4000;
-// Server.listen(4000,()=> console.log(`server running ${port} `));
+// server.listen(4000,()=> console.log(`server running ${port} `));
  
 
  

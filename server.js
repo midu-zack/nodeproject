@@ -8,13 +8,14 @@ const { Console } = require('console')
 
 
 http.createServer((req,res)=>{
-   var route = req.url
-   let method = req.method
+
+   var route = req.url;
+   var method = req.method;
    
    
 
   if(route === '/'){
-   let data = fs.readFileSync('index.html',"utf-8")    //line by line check readfilesync
+   let data = fs.readFileSync('index.html',"utf-8")    //line by line check readfileAsync
        try{
          res.writeHead(200,{'Content-Type':'text/html'})
          res.end(data);
@@ -221,12 +222,9 @@ http.createServer((req,res)=>{
   
 
   
-}).listen(5000,()=>console.log("Server Running"))
+}).listen(3000)
 
-// const port = process.env.port || 4000;
-// server.listen(4000,()=> console.log(`server running ${port} `));
  
-
  
 
 

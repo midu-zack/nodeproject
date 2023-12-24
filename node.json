@@ -1,16 +1,9 @@
 [
   {
-    "id": "1",
-    "name": "Abraham Howe",
-    "phonenumber": "5179384983",
-    "age": "62",
-    "gmail": "tulagebegy@mailinator.com"
-  },
-  {
-    "name": "Madeline Riddle",
-    "phonenumber": "1778274224",
-    "age": "40",
-    "gmail": "wenicihixa@mailinator.com",
-    "id": 2
+    "name": "Lucy Flowers",
+    "phonenumber": "99567666399",
+    "age": "18",
+    "gmail": "tulagebegy@mailinator.com",
+    "id": 1
   }
 ]

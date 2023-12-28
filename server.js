@@ -56,7 +56,7 @@ http.createServer((req,res)=>{
   
 // } 
 
-else if( route==='/submit' &&  method==="POST"){
+else if( route==='/submit' &&  method==="POST"){   //The post method adding in dataS
   
   try{
 
@@ -71,19 +71,27 @@ else if( route==='/submit' &&  method==="POST"){
       req.on('end',()=>{
 
 
-          let recevedatas= JSON.parse(body);
+           let recevedatas= JSON.parse(body);  // String dataS parse to jsObject  AMD 'withOutId'
+           
+          console.log(recevedatas);
 
         fs.readFile('node.json','utf-8',(err,data)=>{
           if(err){
+
             res.writeHead(500,{'Content-Type':'text/html'})
             res.end("ERROR IN The PAGE")
         
           }else{
-            var stringdata = [];
-            stringdata =JSON.parse(data)
-            var newarray = stringdata.length + 1
+            let stringdata = [];
 
-            recevedatas.id = newarray
+            stringdata =JSON.parse(data) // String dataS parse to jsObject  AMD 'withId'
+            
+            // console.log(stringdata)
+
+            let newArray = stringdata.length + 1
+
+            recevedatas.id = newArray  //id fixed  situation
+            
             stringdata.push(recevedatas) //push new user file  array 
 
 
@@ -96,9 +104,7 @@ else if( route==='/submit' &&  method==="POST"){
                   res.end("DATA saved ");
               }
           });
-          
-
-            
+           
           }
         })
 
@@ -158,13 +164,13 @@ else if( route==='/submit' &&  method==="POST"){
         }else{
           let modi = JSON.parse(jdata) //old datas stored
 
-           console.log(modifaid);
+        //    console.log(modifaid);
 
           for(let i = 0;i < modi.length ; i++){
 
             if(modi[i].id===userid){  //modify data connect in old id   ..same aanoo nn check cheyuunuu
 
-                console.log("hello");
+                // console.log("hello");
 
 
               modi[i]=modifaid;  // edit cheydha id um old id um same aano chodhikaa

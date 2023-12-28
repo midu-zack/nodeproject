@@ -1,7 +1,6 @@
-
-var http =require('http')
-var fs = require('fs')
-var url = require('url')
+const http =require('http')
+const fs = require('fs')
+const url = require('url')
 const { parse } = require('path')
 const { Server } = require('https')
 const { Console } = require('console')
@@ -9,14 +8,15 @@ const { Console } = require('console')
 
 http.createServer((req,res)=>{
 
-   var route = req.url;
-   var method = req.method;
+   const route = req.url;
+   const method = req.method;
    
    
 
-  if(route === '/'){
-   let data = fs.readFileSync('index.html',"utf-8")    //line by line check readfileAsync
+  if(route === '/' ||  route.toLowerCase() ==='/home?'){
        try{
+          const data = fs.readFileSync('index.html',"utf-8")    //line by line check readfileAsync
+    
          res.writeHead(200,{'Content-Type':'text/html'})
          res.end(data);
        } catch(err) {
@@ -28,8 +28,10 @@ http.createServer((req,res)=>{
    
   
   }else if(route.toLowerCase() ==='/form?'){
-      let data = fs.readFileSync('form.html',"utf-8")
-        try{
+      try{
+
+       const data = fs.readFileSync('form.html',"utf-8")
+      
         res.writeHead(200,{'Content-Type':'text/html'})
         res.end(data)
       }catch(err){
@@ -39,20 +41,25 @@ http.createServer((req,res)=>{
     
 
     
-  }else if( route.toLocaleLowerCase() ==='/home?'){
-    let data= fs.readFileSync('index.html','utf-8')
-      try{
-        res.writeHead(200,{'Content-Type':'text/html'})
-        res.end(data)
-      }catch(err){
+  }
+//   else if( route.toLowerCase() ==='/home?'){
+//     try{
+//         const data= fs.readFileSync('index.html','utf-8')
+//         res.writeHead(200,{'Content-Type':'text/html'})
+//         res.end(data)
+//     }catch(err){
         
-        res.writeHead(500,{'Content-Type':'text/html'})
-        res.end("ERROR IN The PAGE")
+//         res.writeHead(500,{'Content-Type':'text/html'})
+//         res.end("ERROR IN The PAGE")
     
-      }
+//       }
   
-}else if( route==='/submit' &&  method==="POST"){
-      
+// } 
+
+else if( route==='/submit' &&  method==="POST"){
+  
+  try{
+
   let body = ''
       
       req.on('data',(chunk)=>{
@@ -63,7 +70,7 @@ http.createServer((req,res)=>{
       });
       req.on('end',()=>{
 
-        try{
+
           let recevedatas= JSON.parse(body);
 
         fs.readFile('node.json','utf-8',(err,data)=>{
@@ -77,7 +84,7 @@ http.createServer((req,res)=>{
             var newarray = stringdata.length + 1
 
             recevedatas.id = newarray
-            stringdata.push(recevedatas) //push new user file to same array as object
+            stringdata.push(recevedatas) //push new user file  array 
 
 
             fs.writeFile("node.json", JSON.stringify(stringdata, null, 2), 'utf-8', (err) => {
@@ -95,15 +102,17 @@ http.createServer((req,res)=>{
           }
         })
 
-        }catch(err){
-
-          res.writeHead(400,{'Content-Type':'text/plain'})
-          res.end('ERROR'+err)
-
-        }
-          
+        
       });
+      
+      }catch(err){
+
+        res.writeHead(400,{'Content-Type':'text/plain'})
+         res.end('ERROR'+err)
+
+       }
 }else if(route.toLocaleLowerCase() === '/getdetails' && method === 'GET'){
+
         fs.readFile("node.json","utf-8",(err,data)=>{
           if(err){
             res.writeHead(400,{'Content-Type':'text/html'})
@@ -119,12 +128,12 @@ http.createServer((req,res)=>{
 }else if(route.toLocaleLowerCase().startsWith("/editdetails") && method === 'PUT' ){
 
 
-    const prsurl= url.parse(route,true); //parse the url and with object 
-    const userid =parseInt(prsurl.pathname.split('/').pop());
+    const prsurl = url.parse(route,true); //total datas 
+    const userid = parseInt(prsurl.pathname.split('/').pop()); // focus to id only 
 
     console.log(userid);
   
-    let body = '';
+    let body = '' ;
 
     req.on("data",(chunk)=>{
 
@@ -136,10 +145,12 @@ http.createServer((req,res)=>{
 
   
   req.on("end",()=>{
+
     try{
+
       const modifaid = JSON.parse(body)
 
-      fs.readFile('node.json',"utf-8",(err,jdata)=>{
+      fs.readFile('node.json' , "utf-8" , (err,jdata)=>{
         if(err){
           res.writeHead(500,{'Content-Type':'text/html'})
             res.end("ERROR IN The PAGE")
@@ -147,13 +158,17 @@ http.createServer((req,res)=>{
         }else{
           let modi = JSON.parse(jdata) //old datas stored
 
-          //  console.log(modifaid);
+           console.log(modifaid);
 
           for(let i = 0;i < modi.length ; i++){
 
-            if(modi[i].id===userid){
+            if(modi[i].id===userid){  //modify data connect in old id   ..same aanoo nn check cheyuunuu
 
-              modi[i]=modifaid;
+                console.log("hello");
+
+
+              modi[i]=modifaid;  // edit cheydha id um old id um same aano chodhikaa
+
               
 
               break;
@@ -174,7 +189,7 @@ http.createServer((req,res)=>{
         }
       })
     }catch(err){
-      res.writeHead(400,{ 'Content-Type': 'text/plain'})
+      res.writeHead(400,{ 'Content-Type' : 'text/plain'})
       res.end('error ')
        
     }
@@ -184,15 +199,18 @@ http.createServer((req,res)=>{
 }else if(route.toLocaleLowerCase().startsWith('/deleteuser') && method==='DELETE'){
 
  
-  const parseurl = url.parse(route,true); //parse the url and with object 
-  const userid =parseInt(parseurl.pathname.split('/').pop());
+  const parseurl = url.parse(route,true);  // all off data
+  const userid =parseInt(parseurl.pathname.split('/').pop()); // find in edit data id
 
   console.log("Received DELETE request for user ID:", userid);
 
-  const jsondata =require('./node.json');
-  const updatedata = jsondata.filter((otheruserid)=> otheruserid.id !== userid);
+  const jsondata = require('./node.json');  // all off data in node.json file
+
+
+  const updatedata = jsondata.filter((otheruserid) => otheruserid.id !== userid);
 
   for(let i=0 ; i < updatedata.length ; i++){
+    
     updatedata[i].id = i + 1;
   }
    

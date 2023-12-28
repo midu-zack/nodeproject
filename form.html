@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>DATAS COLLECTS</title>
 </head>
 <body>
   <style>
@@ -59,7 +59,7 @@
       <div class="container">
         <div class="login-container">
           <h2 class="text-center  m-4" style="  font-weight: 800; color: #d2e100;">DETAILS</h2>
-          <form action="/submit" onsubmit="return validateForm()" method="post" >
+          <form action="/submit"  method="post" >
             <div class="form-group">
               <label for="name">Name:</label>
               <input type="text" class="form-control"  id="nickname" placeholder="Enter your name " name="name" value="">
@@ -81,19 +81,20 @@
               <p id="gmailform" style="color: #e10000;"></p>
             </div>
            
-            <button type="submit" class=" btn btn-login "> Submit </button>
+            <button type="button"  class=" btn btn-login" onclick="validateForm()"> Submit </button>
       
           
           </form>
   
           <form action="/home" method="get " class="pt-3">
-            <button type="submit" class="btn btn-login " style=" background-color: #e10000;" >All USERS</button>
+            <button type=" " class="btn btn-login " style=" background-color: #e10000;" >All USERS</button>
            </form>
         </div>
       </div>
     </body>
  
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
 
 
@@ -107,7 +108,7 @@
       let fage;
       let fmail;
       let fgmail;
-      let id = 0;
+      let id ;
 
       function validateForm() {
           tname = document.getElementById('nickname').value;

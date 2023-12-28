@@ -124,6 +124,9 @@
  
 
 <script>
+
+
+
   document.addEventListener("DOMContentLoaded",()=>{
 
      
@@ -226,7 +229,7 @@
 
   
       const dataToUpdate = {
-          id:mid,
+          id:parseInt(mid),
           name:tname,
           phonenumber:telphone,
           age:yearold,
@@ -239,8 +242,7 @@
           body :JSON.stringify(dataToUpdate),
 
         }).then((response)=>{
-          // console.log("checkouttttttt",response);
-          
+        
           if(response.status===200){
             
             alert("update your datas")
